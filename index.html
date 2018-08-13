@@ -7,7 +7,7 @@
   <title>Prototype</title>
 </head>
 <body>
-  <div style="width: 500px; height: 500px;">
+  <div id="div">
     <ul>
       <li>1</li>
       <li>2</li>
@@ -17,5 +17,26 @@
     </ul>
   </div>
   <script src="HTMLElement.js"></script>
+  <script>
+    var a = function (e) {
+      console.log('----------------- this');
+      console.log(this);
+    };
+
+    var b = function (e) {
+      console.log('----------------- this2');
+      console.log(this);
+    };
+
+    var c = function (e) {
+      console.log('----------------- this333');
+      console.log(this);
+    };
+
+
+    document.querySelector('div').on('click', 'li', a);
+    document.querySelector('div').on('mousedown', 'li', c);
+    document.querySelector('div').on('click', 'li', b);
+  </script>
 </body>
 </html>
