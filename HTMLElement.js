@@ -1,7 +1,10 @@
 function on(name, selector, fn) {
-  if (typeof selector === 'function') {
+  if (arguments.length < 2) return false;
+  if (arguments.length == 2 && typeof selector === 'function') {
     fn = selector;
     selector = undefined;
+  } else if (typeof selector !== 'string' || typeof fn !== 'function') {
+    return false;
   }
 
   const a = (e) => {
@@ -39,11 +42,7 @@ function on(name, selector, fn) {
   return this;
 }
 
-function off() {
-  let name;
-  let selector;
-  let fn;
-
+function off(name, selector, fn) {
   let filteredEvents = [];
 
   const _events = this._events;
@@ -58,27 +57,18 @@ function off() {
   }
 
   if (arguments.length === 1) {
-    name = arguments[0];
-
     _events.forEach((event, i) => {
       event.name === name && filteredEvents.push([i, event]);
     });
   }
   
   if (arguments.length === 2) {
-    name = arguments[0];
-    fn = arguments[1];
-
     _events.forEach((event, i) => {
-      event.name === name && event.fn === fn && filteredEvents.push([i, event]);
+      event.name === name && event.selector === selector && filteredEvents.push([i, event]);
     });
   }
 
   if (arguments.length === 3) {
-    name = arguments[0];
-    selector = arguments[1];
-    fn = arguments[2];
-
     _events.forEach((event, i) => {
       event.name === name && event.selector === selector && event.fn === fn && filteredEvents.push([i, event]);
     });

@@ -18,25 +18,33 @@
   </div>
   <script src="HTMLElement.js"></script>
   <script>
-    var a = function (e) {
-      console.log('----------------- this');
-      console.log(this);
-    };
+    function callback1() { console.log('click'); }
+    function callback2() { console.log('mousedown, li'); }
+    function callback3() { console.log('click li A'); }
+    function callback4() { console.log('click li B'); }
+    function callback5() { console.log('click ul C'); }
 
-    var b = function (e) {
-      console.log('----------------- this2');
-      console.log(this);
-    };
-
-    var c = function (e) {
-      console.log('----------------- this333');
-      console.log(this);
-    };
+    document.querySelector('div').on('click', callback1);
+    document.querySelector('div').on('mousedown', 'li', callback2);
+    document.querySelector('div').on('click', 'li', callback3);
+    document.querySelector('div').on('click', 'li', callback4);
+    document.querySelector('div').on('click', 'ul', callback5);
+  
 
 
-    document.querySelector('div').on('click', 'li', a);
-    document.querySelector('div').on('mousedown', 'li', c);
-    document.querySelector('div').on('click', 'li', b);
+
+    // document.querySelector('div').off('click', 'li', callback4);
+    // document.querySelector('div').off('mousedown');
+    // document.querySelector('div').off();
+
+
+
+/*
+.off( events [, selector ] [, handler ] )
+.off( events [, selector ] )
+.off( event )
+.off()
+*/
   </script>
 </body>
 </html>
